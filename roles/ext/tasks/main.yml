@@ -1,0 +1,34 @@
+---
+
+- name: create ~/opt directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - ~/opt/
+    - ~/.local/bin/
+
+- name: Test telegram desktop installation
+  ansible.builtin.stat:
+    path: ~/opt/Telegram/Telegram
+  register: telegram_stat
+
+- name: Download telegram desktop
+  ansible.builtin.get_url:
+    url: https://telegram.org/dl/desktop/linux
+    dest: ~/opt/
+  register: telegram_dl
+  when: not telegram_stat.stat.exists
+
+- name: Unarchive telegram desktop
+  ansible.builtin.unarchive:
+    src: "{{ telegram_dl.dest }}"
+    dest: ~/opt/
+    remote_src: yes
+  when: not telegram_stat.stat.exists
+
+- name: Create telegram desktop symlink
+  ansible.builtin.file:
+    src: ~/opt/Telegram/Telegram
+    dest: ~/.local/bin/Telegram
+    state: link

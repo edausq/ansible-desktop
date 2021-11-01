@@ -1,0 +1,6 @@
+---
+
+- hosts: localhost
+  roles:
+  #- { role: desktop, tags: desktop }
+  - { role: ext, tags: ext }
