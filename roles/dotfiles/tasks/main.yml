@@ -1,0 +1,23 @@
+---
+
+- name: Create dotfiles links
+  ansible.builtin.file:
+    src: "{{playbook_dir}}/roles/dotfiles/files/{{ item }}"
+    path: "~/.{{ item }}"
+    state: link
+    force: yes
+  loop:
+    - gtkrc-2.0
+    - mailcap
+    - selected_editor
+    - vimrc
+    - Xdefaults
+
+- name: Create dotfiles .config links
+  ansible.builtin.file:
+    src: "{{playbook_dir}}/roles/dotfiles/files/{{ item }}"
+    path: "~/.config/{{ item }}"
+    state: link
+    force: yes
+  loop:
+    - awesome

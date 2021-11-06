@@ -2,5 +2,9 @@
 
 - hosts: localhost
   roles:
-  #- { role: desktop, tags: desktop }
+  - { role: desktop, tags: desktop }
   - { role: ext, tags: ext }
+  - { role: bashrc, tags: bashrc }
+  - { role: dotfiles, tags: dotfiles }
+  # depends on the desktop (personal, professional, ...)
+  - { role: custom, tags: custom }

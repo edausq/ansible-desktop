@@ -1,0 +1,20 @@
+---
+
+- name: Create .bashrc link
+  ansible.builtin.file:
+    src: '{{playbook_dir}}/roles/bashrc/files/bashrc'
+    path: ~/.bashrc
+    state: link
+    force: yes
+
+- name: Create .bashrc.d directory
+  ansible.builtin.file:
+    path: ~/.bashrc.d/
+    state: directory
+
+- name: Create .bashrc.d/00_base directory link
+  ansible.builtin.file:
+    src: '{{playbook_dir}}/roles/bashrc/files/bashrc.d/'
+    path: ~/.bashrc.d/00_base
+    state: link
+    force: yes

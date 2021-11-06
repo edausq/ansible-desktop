@@ -1,0 +1,29 @@
+"set mouse=r
+set bg=dark
+hi clear SpellBad
+hi SpellBad cterm=underline ctermfg=blue
+
+augroup filetypedetect
+au BufNewFile,BufRead *.tex setlocal spell spelllang=fr,en
+augroup END
+
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+set hlsearch
+set showcmd
+set showmatch
+set ignorecase
+
+map <F8> <Esc>:setlocal spell! spelllang=fr,en<CR>
+
+let _curfile = expand("%:t")
+if _curfile =~ "Makefile" || _curfile =~ "makefile" || _curfile =~ ".*\.mk"
+set noexpandtab
+else
+set expandtab
+set tabstop=4
+set shiftwidth=4
+endif
+
+au FileType gitcommit hi gitcommitSummary ctermfg=yellow ctermbg=red
+
+au BufRead,BufNewFile *.tsv set tabstop=20 nowrap listchars=eol:\ ,tab:»…,trail:·,precedes:…,extends:…,nbsp:‗ list noexpandtab

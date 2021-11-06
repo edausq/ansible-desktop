@@ -1,0 +1,18 @@
+---
+
+- name: Generate script to install desktop packages
+  ansible.builtin.template:
+    src: install_desktop_packages.sh.j2
+    dest: ~/opt/install_desktop_packages.sh 
+    mode: 0750
+
+- name: Create tools symlinks
+  ansible.builtin.file:
+    src: "~/wd/edausque/tools/{{ item }}"
+    dest: "~/.local/bin/{{ item }}"
+    state: link
+  loop:
+    - lock
+    - scrot
+    - termgro
+    - z

@@ -1,0 +1,45 @@
+URxvt.perl-ext-common: default,tabbed,selection-to-clipboard,matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: fg5
+
+urxvt*loginShell:         true
+URxvt*background:       #000000
+URxvt*foreground:       #f2f2f2
+URxvt*cursorColor:      #f2f2f2
+URxvt*saveLines:        10000
+URxvt*scrollBar:        true
+URxvt*scrollBar_floating:       true
+URxvt*scrollBar_right:  true
+URxvt*scrollstyle:      plain
+URxvt*scrollTtyOutput:  false
+URxvt*scrollWithBuffer: false
+#URxvt*termName: xterm
+URxvt*termName: xterm-256color
+URxvt*font:     xft:Bitstream Vera Sans Mono:style=Regular:pixelsize=13:antialias=true,xft:Noto Emoji
+URxvt.tabbed.tabbar-fg: 8
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg:    7
+URxvt.tabbed.tab-bg:    0
+
+URxvt.clipboard.autocopy: false
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+
+URxvt*color0:   #101010
+URxvt*color1:   #f12f2f
+URxvt*color2:   #03bb00
+URxvt*color3:   #b3b300
+URxvt*color4:   #3d99ff
+URxvt*color5:   #d434da
+URxvt*color6:   #00cdcd
+URxvt*color7:   #f2f2f2
+#URxvt*color8:   #101010
+URxvt*color9:   #f12f2f
+URxvt*color10:  #03bb00
+URxvt*color11:  #b3b300
+URxvt*color12:  #3d99ff
+URxvt*color13:  #d434da
+URxvt*color14:  #00cdcd
+URxvt*color15:  #f2f2f2

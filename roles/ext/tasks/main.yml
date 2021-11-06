@@ -8,6 +8,25 @@
     - ~/opt/
     - ~/.local/bin/
 
+- name: Test plik installation
+  ansible.builtin.stat:
+    path: ~/opt/plik
+  register: plik_stat
+
+- name: Download plik
+  ansible.builtin.get_url:
+    url: https://plik.root.gg/clients/linux-amd64/plik
+    dest: ~/opt/
+    mode: 0755
+  register: plik_dl
+  when: not plik_stat.stat.exists
+
+- name: Create plik symlink
+  ansible.builtin.file:
+    src: ~/opt/plik
+    dest: ~/.local/bin/plik
+    state: link
+
 - name: Test telegram desktop installation
   ansible.builtin.stat:
     path: ~/opt/Telegram/Telegram
@@ -30,5 +49,17 @@
 - name: Create telegram desktop symlink
   ansible.builtin.file:
     src: ~/opt/Telegram/Telegram
-    dest: ~/.local/bin/Telegram
+    dest: ~/.local/bin/telegram
     state: link
+
+- name: pip install tools
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    virtualenv: ~/venv/
+  with_items:
+    - awscli
+    - awscli-plugin-endpoint
+    - pyexchange
+    - python-keystoneclient
+    - python-swiftclient
+    - vdirsyncer

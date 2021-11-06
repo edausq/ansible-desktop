@@ -1,0 +1,11 @@
+text/calendar;/home/edausque/.mutt/mutt_format_ics.sed %s; copiousoutput
+text/html; firefox %s && sleep 0.5; test=test -n "$DISPLAY"
+text/html; links -html-numbered-links 1 -dump %s; nametemplate=%s.html; copiousoutput
+
+image/*;eog %s; test=test -n "$DISPLAY"
+image/*;img2txt -f ansi %s; copiousoutput
+
+application/pdf;evince %s; test=test -n "$DISPLAY"
+application/pdf;pdftotext %s -; copiousoutput
+
+#text/html; iconv -c -f %{charset} -t LATIN1//TRANSLIT | html2text -style pretty; copiousoutput; description=HTML Text
