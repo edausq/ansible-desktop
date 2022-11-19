@@ -540,6 +540,7 @@ globalkeys = awful.util.table.join(
     -- fn keys
     awful.key({ modkey, }, "Scroll_Lock", false, function () awful.spawn.with_shell("/home/edausque/.local/bin/lock") end), --xlock script
     awful.key({ modkey, }, "Pause", false, function () awful.spawn.with_shell("/home/edausque/.local/bin/lock") end), --xlock script
+    awful.key({ modkey, }, "Next", false, function () awful.spawn.with_shell("/home/edausque/.local/bin/lock") end), --xlock script
     awful.key({ }, "Pause", function () awful.spawn.with_shell("mocp -G") end), --pause moc
     awful.key({ }, "Print", function () awful.spawn.with_shell("/home/edausque/.local/bin/scrot") end), --scrot script
     awful.key({ modkey, }, "Print", false, function () awful.spawn.with_shell("/home/edausque/.local/bin/scrot -s") end),
