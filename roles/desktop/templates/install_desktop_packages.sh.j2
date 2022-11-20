@@ -2,6 +2,16 @@
 
 # {{ ansible_managed }}
 
-{% for package in desktop_packages %}
-/usr/bin/sudo /usr/local/bin/apt install --no-install-recommends --yes {{ package }}
+/usr/bin/sudo /usr/local/bin/apt update
+
+# common_desktop_packages
+{% for package in common_desktop_packages %}
+/usr/bin/sudo /usr/local/bin/apt install --no-install-recommends --yes {{ package }} || exit
 {% endfor %}
+
+# managed_ubuntu_desktop_packages
+{% for package in managed_ubuntu_desktop_packages %}
+/usr/bin/sudo /usr/local/bin/apt install --no-install-recommends --yes {{ package }} || exit
+{% endfor %}
+
+touch ${0%/*}/.${0##*/}_has_been_executed

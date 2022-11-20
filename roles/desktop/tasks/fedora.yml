@@ -1,0 +1,52 @@
+---
+
+- name: Enable corp flatcap/neomutt
+  community.general.copr:
+    name: flatcap/neomutt
+    state: enabled
+  become: yes
+
+- name: Test negativo17-fedora-nvidia repo installation
+  ansible.builtin.stat:
+    path: /etc/yum.repos.d/negativo17-fedora-nvidia.repo
+  register: negativo17_nvidia_stat
+
+- name: Download negativo17-fedora-nvidia repo
+  ansible.builtin.get_url:
+    url: https://negativo17.org/repos/fedora-nvidia.repo
+    dest: /etc/yum.repos.d/negativo17-fedora-nvidia.repo
+    mode: 0644
+  become: yes
+  when: not negativo17_nvidia_stat.stat.exists
+
+- name: Test negativo17-fedora-steam repo installation
+  ansible.builtin.stat:
+    path: /etc/yum.repos.d/negativo17-fedora-steam.repo
+  register: negativo17_steam_stat
+
+- name: Download negativo17-fedora-steam repo
+  ansible.builtin.get_url:
+    url: https://negativo17.org/repos/fedora-steam.repo
+    dest: /etc/yum.repos.d/negativo17-fedora-steam.repo
+    mode: 0644
+  become: yes
+  when: not negativo17_steam_stat.stat.exists
+
+- name: Enable the RPM Fusion repository
+  dnf:
+    name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
+    state: present
+    disable_gpg_check: yes
+  become: yes
+
+- name: '[fedora] Install desktop packages 1/2 (common)'
+  ansible.builtin.package:
+    name: "{{ common_desktop_packages}}"
+    state: latest
+  become: yes
+
+- name: '[fedora] Install desktop packages 2/2 (fedora)'
+  ansible.builtin.package:
+    name: "{{ fedora_desktop_packages}}"
+    state: latest
+  become: yes

@@ -1,0 +1,16 @@
+---
+
+- name: '[managed ubuntu] Generate script to install desktop packages'
+  ansible.builtin.template:
+    src: install_desktop_packages.sh.j2
+    dest: ~/opt/install_desktop_packages.sh 
+    mode: 0750
+
+- name: '[managed ubuntu] Check execution of script'
+  ansible.builtin.stat:
+    path: ~/opt/.install_desktop_packages.sh_has_been_executed
+  register: managed_ubuntu_script_stat
+
+- name: '[managed ubuntu] Test before continuing'
+  fail: msg="[managed ubuntu] Please run ~/opt/install_desktop_packages.sh before running again ansible"
+  when: not managed_ubuntu_script_stat.stat.exists

@@ -1,18 +1,15 @@
 ---
 
-- name: Generate script to install desktop packages
-  ansible.builtin.template:
-    src: install_desktop_packages.sh.j2
-    dest: ~/opt/install_desktop_packages.sh 
-    mode: 0750
-
-- name: Create tools symlinks
+- name: create ~/opt and ~/.local/bin directories
   ansible.builtin.file:
-    src: "~/wd/edausque/tools/{{ item }}"
-    dest: "~/.local/bin/{{ item }}"
-    state: link
-  loop:
-    - lock
-    - scrot
-    - termgro
-    - z
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - ~/opt/
+    - ~/.local/bin/
+
+- include_tasks: managed_ubuntu.yml
+  when: ansible_domain | regex_search(".int.")
+
+- include_tasks: fedora.yml
+  when: ansible_distribution == "Fedora"
