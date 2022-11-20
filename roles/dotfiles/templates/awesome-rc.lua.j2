@@ -11,7 +11,7 @@ local beautiful = require("beautiful")
 -- now using dunst
 --local naughty = require("naughty")
 
--- {{{ Error handling
+-- <<< Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
@@ -34,11 +34,11 @@ do
         in_error = false
     end)
 end
--- }}}
+-- >>>
 
--- {{{ Variable definitions
+-- <<< Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/edausque/.config/awesome/theme.lua")
+beautiful.init("{{ ansible_user_dir }}/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -68,9 +68,9 @@ local layouts =
     awful.layout.suit.max,
     awful.layout.suit.magnifier
 }
--- }}}
+-- >>>
 
--- {{{ Helper functions
+-- <<< Helper functions
 local function client_menu_toggle_fn()
     local instance = nil
 
@@ -83,10 +83,10 @@ local function client_menu_toggle_fn()
         end
     end
 end
--- }}}
+-- >>>
 
 
--- {{{ Menu
+-- <<< Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "restart", awesome.restart },
@@ -102,7 +102,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu },
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
--- }}}
+-- >>>
 
 mykeyboardlayout = awful.widget.keyboardlayout()
 
@@ -153,7 +153,7 @@ local tasklist_buttons = gears.table.join(
                                           end))
 
 
--- {{{ Wibox
+-- <<< Wibox
 myvolstatus = wibox.widget.textbox()
 myvolstatus:set_text('♫ ♩ ')
 myvolstatus:buttons(awful.util.table.join(
@@ -170,7 +170,7 @@ mysystemstatus:set_markup(' (loading)')
 -- hook MAJ status bar
 mytimer = timer({ timeout = 5 })
 mytimer:connect_signal("timeout", function()
--- {{ loadavg
+-- << loadavg
     local f = io.open('/proc/loadavg')
     if f then
         local loads = f:read("*l")
@@ -186,9 +186,9 @@ mytimer:connect_signal("timeout", function()
     if load1 > 0.99 then color = 'orange' end
     if load1 > 3.5  then color = 'red' end
     loadavg = string.format('<span color="%s">%.2f</span>', color, load1)
--- }}
+-- >>
 
--- {{ %mem
+-- << %mem
     local mem = {}
     for line in io.lines("/proc/meminfo") do
             for k, v in string.gmatch(line, "([%a]+):[%s]+([%d]+).+") do
@@ -206,9 +206,9 @@ mytimer:connect_signal("timeout", function()
     if mem > 75 then color = 'orange' end
     if mem > 85  then color = 'red' end
     meminfo = string.format('<span color="%s">%.2f%%</span>', color, mem)
--- }}
+-- >>
 
--- {{ battery
+-- << battery
     local f = io.popen('acpi -b')
     if f then
         local bats = f:read("*l")
@@ -251,7 +251,7 @@ mytimer:connect_signal("timeout", function()
 
     batinfo = string.format('%s%s', status, pourcinfo)
     if rem then batinfo = string.format('%s (%s)', batinfo, rem) end
--- }}
+-- >>
 
 -- week of year
 
@@ -462,9 +462,9 @@ awful.screen.connect_for_each_screen(function(s)
         },
     }
 end)
--- }}}
+-- >>>
 
--- {{{ Mouse bindings
+-- <Mouse bindings>
 --[[
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
@@ -472,9 +472,9 @@ root.buttons(awful.util.table.join(
     awful.button({ }, 5, awful.tag.viewprev)
 ))
 --]]
--- }}}
+-- </Mouse bindings>
 
--- {{{ Key bindings
+-- <Key bindings>
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext),
@@ -538,12 +538,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- fn keys
-    awful.key({ modkey, }, "Scroll_Lock", false, function () awful.spawn.with_shell("/home/edausque/.local/bin/lock") end), --xlock script
-    awful.key({ modkey, }, "Pause", false, function () awful.spawn.with_shell("/home/edausque/.local/bin/lock") end), --xlock script
-    awful.key({ modkey, }, "Next", false, function () awful.spawn.with_shell("/home/edausque/.local/bin/lock") end), --xlock script
+    awful.key({ modkey, }, "Scroll_Lock", false, function () awful.spawn.with_shell("{{ ansible_user_dir }}/.local/bin/lock") end), --xlock script
+    awful.key({ modkey, }, "Pause", false, function () awful.spawn.with_shell("{{ ansible_user_dir }}/.local/bin/lock") end), --xlock script
+    awful.key({ modkey, }, "Next", false, function () awful.spawn.with_shell("{{ ansible_user_dir }}/.local/bin/lock") end), --xlock script
     awful.key({ }, "Pause", function () awful.spawn.with_shell("mocp -G") end), --pause moc
-    awful.key({ }, "Print", function () awful.spawn.with_shell("/home/edausque/.local/bin/scrot") end), --scrot script
-    awful.key({ modkey, }, "Print", false, function () awful.spawn.with_shell("/home/edausque/.local/bin/scrot -s") end),
+    awful.key({ }, "Print", function () awful.spawn.with_shell("{{ ansible_user_dir }}/.local/bin/scrot") end), --scrot script
+    awful.key({ modkey, }, "Print", false, function () awful.spawn.with_shell("{{ ansible_user_dir }}/.local/bin/scrot -s") end),
     awful.key({ modkey, }, "F10", false, function () volume('toggle') end),
     awful.key({ modkey, }, "F11", false, function () volume('down') end),
     awful.key({ modkey, }, "F12", false, function () volume('up') end),
@@ -631,9 +631,9 @@ clientbuttons = awful.util.table.join(
 
 -- Set keys
 root.keys(globalkeys)
--- }}}
+-- </Key bindings>
 
--- {{{ Rules
+-- <rules>
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -657,9 +657,9 @@ awful.rules.rules = {
    { rule = { role = "browser" }, properties = { floating = false ,  maximized = false} },
    { rule = { name = "PopupWidgetTitle" }, properties = { floating = true ,  maximized = false} },
 }
--- }}}
+-- </rules>
 
--- {{{ Signals
+-- <signals>
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
     -- Enable sloppy focus
@@ -692,7 +692,7 @@ awful.completion.bashcomp_load("/usr/share/bash-completion/completions/pass")
 --completion.bashcomp_load()
 awful.spawn("xset -dpms")
 awful.spawn("xset s off")
-awful.spawn("/usr/bin/dunst -config /home/edausque/.config/dunst/dunstrc")
+awful.spawn("/usr/bin/dunst -config {{ ansible_user_dir }}/.config/dunst/dunstrc")
 
 
--- }}}/
+-- </signals>

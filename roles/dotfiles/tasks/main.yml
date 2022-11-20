@@ -13,6 +13,19 @@
     - vimrc
     - Xdefaults
 
+- name: Create ~/.config/awesome directory
+  ansible.builtin.file:
+    path: ~/.config/awesome
+    state: directory
+
+- name: Create ~/.config/awesome config files from a template
+  ansible.builtin.template:
+    src: "awesome-{{ item }}.j2"
+    dest: "~/.config/awesome/{{ item }}"
+  loop:
+    - rc.lua
+    - theme.lua
+
 - name: Create dotfiles .config links
   ansible.builtin.file:
     src: "{{playbook_dir}}/roles/dotfiles/files/{{ item }}"
@@ -20,4 +33,4 @@
     state: link
     force: yes
   loop:
-    - awesome
+    - awesome-theme

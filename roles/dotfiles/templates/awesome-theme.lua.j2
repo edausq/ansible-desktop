@@ -33,8 +33,8 @@ theme.border_marked = "#91231c"
 --theme.taglist_bg_focus = "#ff0000"
 
 -- Display the taglist squares
-theme.taglist_squares_sel   = "/home/edausque/.config/awesome/taglist/squarefw.png"
-theme.taglist_squares_unsel = "/home/edausque/.config/awesome/taglist/squarew.png"
+theme.taglist_squares_sel   = "{{ ansible_user_dir }}/.config/awesome-theme/taglist/squarefw.png"
+theme.taglist_squares_unsel = "{{ ansible_user_dir }}/.config/awesome-theme/taglist/squarew.png"
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
@@ -72,7 +72,7 @@ theme.titlebar_maximized_button_focus_inactive  = "/usr/share/awesome/themes/def
 theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = "/home/edausque/.config/awesome/background.png"
+theme.wallpaper = "{{ ansible_user_dir }}/.config/awesome-theme/background.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"
